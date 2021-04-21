@@ -1,9 +1,10 @@
 import axios from 'axios';
 import * as yup from 'yup';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Form from './Form';
 import schema from './formSchema';
+import User from './User'
 
 //Initial States//
 const initialFormValues = {
@@ -42,8 +43,27 @@ function App() {
   }
 
   const inputChange = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => {
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0],
+        });
+      });
 
-  }
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
   const formSubmit = () => {
     const newUser = {
@@ -58,7 +78,13 @@ function App() {
   };
 
   // Side Effects
-  
+  useEffect(() => {
+    schema.isValid(formValues).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [formValues]);
+
+
 
 
   return (
@@ -74,6 +100,10 @@ function App() {
         disabled={disabled}
         errors={formErrors}
       />
+
+      {users.map((user) => {
+        return <User key={user.id} details={user} />;
+      })}
     </div>
   );
 }
