@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import React, {useState} from 'react';
 import './App.css';
 import Form from './Form';
+import schema from './formSchema';
 
 //Initial States//
 const initialFormValues = {
@@ -28,15 +29,33 @@ function App() {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
-  // const postNewUser
+  const postNewUser = (newUser) => {
+    axios.post("https://reqres.in/api/users", newUser)
+    .then((res) => {
+      setUsers([...users, res.data]);
+      setFormValues(initialFormValues);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    
+  }
 
   const inputChange = (name, value) => {
 
   }
 
   const formSubmit = () => {
-    
-  }
+    const newUser = {
+      name: formValues.name.trim(),
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+      terms:  ["terms"].filter(
+        (clicked) => formValues[clicked]
+      ),
+    };
+    postNewUser(newUser);
+  };
 
   // Side Effects
   

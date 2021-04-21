@@ -2,8 +2,19 @@ import React from 'react';
 
 export default function Form({ values, submit, change, disabled, errors }) {
 
+    const onSubmit = (event) => {
+        event.preventDefault();
+        submit();
+      };
+
+      const onChange = (event) => {
+          const { name, value, checked, type } = event.target;
+          const valueToUse = type === "checkbox" ? checked : value;
+          change(name, valueToUse);
+      }
+
     return (
-        <form className="form container">
+        <form className="form container" onSubmit={onSubmit}>
             <div className="form-group submit">
                 <h2>Add a User</h2>
                 <button disabled={disabled}>submit</button>
@@ -21,7 +32,7 @@ export default function Form({ values, submit, change, disabled, errors }) {
                     Name&nbsp;
                     <input
                       value={values.name}
-                      onChange=''
+                      onChange= {onChange}
                       name="name"
                       type="text"
                     />
@@ -31,7 +42,7 @@ export default function Form({ values, submit, change, disabled, errors }) {
                     Email
                     <input
                       value={values.email}
-                      onChange=''
+                      onChange={onChange}
                       name="email"
                       type="text"
                     />
@@ -41,7 +52,7 @@ export default function Form({ values, submit, change, disabled, errors }) {
                     Password
                     <input
                       value={values.password}
-                      onChange=''
+                      onChange={onChange}
                       name="password"
                       type="text"
                     />
@@ -57,7 +68,7 @@ export default function Form({ values, submit, change, disabled, errors }) {
                       type="checkbox"
                       name="terms"
                       checked={values.terms}
-                      onChange=''
+                      onChange={onChange}
                     />
                 </label>
             </div>
