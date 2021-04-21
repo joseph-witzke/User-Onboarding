@@ -30,13 +30,17 @@ function App() {
 
   // const postNewUser
 
-  // const inputChange
+  const inputChange = (name, value) => {
 
-  // const formSubmit
+  }
+
+  const formSubmit = () => {
+    
+  }
 
   // Side Effects
   
-  
+
 
   return (
     <div className="App">
@@ -44,7 +48,13 @@ function App() {
         <h1>User Form</h1>
       </header>
 
-      {/* <Form /> */}
+      <Form 
+        values={formValues}
+        change={inputChange}
+        submit={formSubmit}
+        disabled={disabled}
+        errors={formErrors}
+      />
     </div>
   );
 }
