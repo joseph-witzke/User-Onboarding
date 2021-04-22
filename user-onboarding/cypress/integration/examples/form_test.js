@@ -27,4 +27,17 @@ describe("User Onboarding App", () => {
         cy.get('input[name="password"]').type("tootleloo");
         cy.get('input[name="password"]').should("have.value", "tootleloo");
     });
+
+    it("checks if user can click checkbox", () => {
+        cy.get('[type="checkbox"]').check()
+    });
+
+    it("can user click submit", () => {
+        cy.get('input[name="name"]').type("Joseph"); 
+        cy.get('input[name="email"]').type("joe@joe.com");
+        cy.get('input[name="password"]').type("tootleloo");
+        cy.get('[type="checkbox"]').check()
+        cy.contains("submit").click();
+
+    });
 })
