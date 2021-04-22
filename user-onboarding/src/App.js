@@ -70,9 +70,9 @@ function App() {
       name: formValues.name.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
-      terms:  ["terms"].filter(
-        (clicked) => formValues[clicked]
-      ),
+      // terms:  ["terms"].filter(
+      //   (clicked) => formValues[clicked]
+      // ),
     };
     postNewUser(newUser);
   };

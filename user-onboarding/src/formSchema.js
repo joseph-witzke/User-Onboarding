@@ -15,5 +15,5 @@ export default yup.object().shape({
         .min(6, "passwords must be at least 6 characters"),
     terms: yup
         .boolean()
-        .required("you must check this to proceed"),
+        .oneOf([true],"you must check this to proceed"),
 });
